@@ -8,7 +8,10 @@
 HardwareSerial LoRaSerial(2);
  
 void setup() {
+  pinMode(M0, OUTPUT);
+  pinMode(M1, OUTPUT);
   pinMode(LED1, OUTPUT);
+  
   digitalWrite(M0, LOW);
   digitalWrite(M1, LOW);
   Serial.begin(9600);

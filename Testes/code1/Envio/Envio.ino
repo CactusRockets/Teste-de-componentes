@@ -9,6 +9,8 @@ String turnOff = "10000,00000,00000,00000,00000,00000,00000,00000,00000,0000";
 HardwareSerial loraSerial(2);
 
 void setup() {
+  pinMode(M0, OUTPUT);
+  pinMode(M1, OUTPUT);
 
   digitalWrite(M0, LOW);
   digitalWrite(M1, LOW);
