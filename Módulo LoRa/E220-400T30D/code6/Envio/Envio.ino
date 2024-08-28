@@ -1,3 +1,5 @@
+#include <Adafruit_BMP280.h>
+
 #define RX 16
 #define TX 17
 #define M0 18
@@ -8,6 +10,7 @@ String turnOff = "00000,00000,00000,00000,00000,00000,00000,00000,00000,0000";
 
 HardwareSerial loraSerial(2);
 
+#define DEFAULT_PRESSURE 1013.25
 #define BMP_ADRESS 0x76
 
 Adafruit_BMP280 bmp;
@@ -25,15 +28,6 @@ void setupBMP() {
                   Adafruit_BMP280::SAMPLING_X8,     /* Pressure oversampling */
                   Adafruit_BMP280::FILTER_X16,      /* Filtering. */
                   Adafruit_BMP280::STANDBY_MS_1);   /* Standby time. */
-}
-
-void readBMP() {
-  altitude = bmp.readAltitude(DEFAULT_PRESSURE);
-  variationAltitude = bmp.readAltitude(DEFAULT_PRESSURE) - initialAltitude;
-
-  if(altitude > maximumAltitudeValue) {
-    maximumAltitudeValue = altitude;
-  }
 }
 
 String getAltitudeBMP(){
@@ -58,20 +52,15 @@ void setup() {
   Serial.begin(9600);
   loraSerial.begin(9600, SERIAL_8N1, RX, TX);
   setupBMP();
-
-  initialAltitude = bmp.readAltitude(DEFAULT_PRESSURE);
-  activeBuzzerStart();
 }
  
 void loop() {
-  String messsage = String(getAltitudeBMP() + ',' 
-                        + getTemperatureBMP() + ',' 
-                        + getPressureBMP());
+  String messsage = getAltitudeBMP();
   loraSerial.print(messsage);
   Serial.println(messsage);
-  delay(1250);
+  delay(500);
 
   loraSerial.print(messsage);
   Serial.println(messsage);
-  delay(1250);
+  delay(500);
 }
