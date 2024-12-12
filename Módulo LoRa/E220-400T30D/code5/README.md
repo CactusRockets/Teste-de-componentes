@@ -1,1 +1,0 @@
-Código para envio e recepção de dados para ser realizado no dia 25/08/2024.
