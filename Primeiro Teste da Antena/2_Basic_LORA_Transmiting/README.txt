@@ -1,0 +1,1 @@
+Envia um pacote com uma quantidade de símbolos análoga à que será transmitida pelo sistema quando estiver com os dados dos sensores sendo enviados

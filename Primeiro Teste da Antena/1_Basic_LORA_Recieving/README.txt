@@ -1,0 +1,1 @@
+Recebe os dados enviados pelo BASIC_LORA_TRANSMITING e apresenta-os na porta serial
