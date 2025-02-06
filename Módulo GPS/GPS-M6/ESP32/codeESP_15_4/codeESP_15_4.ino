@@ -11,6 +11,7 @@
 
 static const int RXPin = 15, TXPin = 4;  // Pinos do ESP32 conectados ao módulo GPS
 static const uint32_t GPSBaud = 9600;    // Taxa de transmissão do GPS NEO-6M
+int gps_available = 0;
 
 TinyGPSPlus gps;
 HardwareSerial gpsSerial(1);  // Usa UART1 do ESP32
@@ -23,7 +24,13 @@ void setup() {
 }
 
 void loop() {
-    while (gpsSerial.available() > 0) {
+    while(true) {
+        gps_available = gpsSerial.available();
+        // Serial.println(gps_available);
+
+        if(gps_available <= 0) {
+          break;
+        }
         gps.encode(gpsSerial.read());  // Processa os dados recebidos do GPS
 
         if (gps.location.isUpdated()) {  // Se houver uma nova atualização de posição
