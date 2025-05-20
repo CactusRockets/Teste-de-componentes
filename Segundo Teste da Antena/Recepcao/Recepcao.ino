@@ -60,6 +60,7 @@ String readRSSI() {
   while (LoRaSerial.available()) {
     response += String(LoRaSerial.read(), HEX);
   }
+  Serial.println(response);
   
   int rssi = response.toInt();
   return String(-rssi / 2) + " dBm";
